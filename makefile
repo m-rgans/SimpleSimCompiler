@@ -43,87 +43,132 @@ exam: scc simplesim
 
 fullexam: scc bigdata.s bigpgm.s bigpgmcmd.s bigpgmstack.s bigpgmvar.s end.s max.s \
 		  prime.s read.s rw.s sum.s
-		  
-	echo "Running BIGDATA"
+
+	@echo "== Running BIGDATA ====================================="
 	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigdata.s > scc.out
 	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigdata.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
 
-	echo "Running BIGPGM"
+	@echo "== Running BIGPGM ======================================"
 	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgm.s > scc.out
 	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgm.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
 
-	echo "Running BIGPGMCMD"
+	@echo "== Running BIGPGMCMD ==================================="
 	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmcmd.s > scc.out
 	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmcmd.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
 
-	echo "Running BIGPGMSTACK"
+	@echo "== Running BIGPGMSTACK ================================="
 	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmstack.s > scc.out
 	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmstack.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
 
-	echo "Running BIGPGMvar"
+	@echo "== Running BIGPGMvar ===================================="
 	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmvar.s > scc.out
 	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmvar.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
 
-	echo "Running end"
+	@echo "== Running end ========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/end.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/end.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running max"
+	@echo "== Running max ========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/max.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/max.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running max"
+	@echo "== Running max =========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/max.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/max.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running prime"
+	@echo "== Running prime ========================================"
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/prime.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/prime.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running read"
+	@echo "== Running read ========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/read.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/read.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running rw"
+	@echo "== Running rw ==========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/rw.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/rw.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
-	echo "Running sum"
+	@echo "== Running sum =========================================="
 	$(BUILD_DIR)/scc < $(INPUT_DIR)/sum.s > scc.out
 	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/sum.s > scc.key
-	-diff scc.out scc.key
+	@echo "-- diff --"
+	diff scc.out scc.key
+	@echo "----------"
+
 	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
 	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
-	-diff simpleCheck.out simpleCheck.key
+	@echo "-- diff --"
+	diff simpleCheck.out simpleCheck.key
+	@echo "----------"
 
 scc: scc.o inpost.o mystack.o
 	$(CXX) $(CXXFLAGS)  $^ -o Build/scc
