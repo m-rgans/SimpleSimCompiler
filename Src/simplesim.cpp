@@ -47,28 +47,28 @@ void simplesim::panic(int errCode)
     //print the associated error message
     switch (errCode) {
     case LOAD_TOO_LARGE:
-      printf("*** ABEND: pgm load: pgm too large ***\n\n");
+      fprintf(stderr, "*** ABEND: pgm load: pgm too large ***\n\n");
       break;
     case LOAD_WORD_INVALID:
-      printf("*** ABEND: pgm load: invalid word ***\n\n");
+      fprintf(stderr, "*** ABEND: pgm load: invalid word ***\n\n");
       break;
     case BAD_OPCODE:
-      printf("*** ABEND: invalid opcode ***\n\n");
+      fprintf(stderr, "*** ABEND: invalid opcode ***\n\n");
       break;
     case BAD_ADDRESS:
-      printf("*** ABEND: addressability error ***\n\n");
+      fprintf(stderr, "*** ABEND: addressability error ***\n\n");
       break;
     case DIV_0:
-      printf("*** ABEND: attempted division by 0 ***\n\n");
+      fprintf(stderr, "*** ABEND: attempted division by 0 ***\n\n");
       break;
     case UNDERFLOW:
-      printf("*** ABEND: underflow ***\n\n");
+      fprintf(stderr, "*** ABEND: underflow ***\n\n");
       break;
     case OVERFLOW:
-      printf("*** ABEND: overflow ***\n\n");
+      fprintf(stderr, "*** ABEND: overflow ***\n\n");
       break;
     case READ_WORD_INVALID:
-      printf("*** ABEND: illegal input ***\n\n");
+      fprintf(stderr, "*** ABEND: illegal input ***\n\n");
       break;
     }
     //stop emulation.
@@ -560,7 +560,7 @@ void printword(int a)
 
   //get digits from sprintf and dump result into temp
   const int width = 4;
-  char temp[10] = "%d";
+  char temp[11] = "%d";
   int digits = sprintf(temp, "%d" ,a);
   int extra = width - digits;
 

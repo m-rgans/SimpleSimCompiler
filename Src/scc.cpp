@@ -34,7 +34,7 @@ int main(int argc, char const *argv[]) {
   a.first_pass();
   //a.printTables();
 
-  a.printASM();
+  //a.printASM();
   a.Console_Prog();
   return 0;
 }
@@ -179,7 +179,7 @@ void scc::expandItable()
       int caddr = addr++;
 
       if (addr >= RMAX) {
-        printf("*** ERROR: ran out Simplesim memory ***\n");
+        fprintf(stderr, "*** ERROR: ran out Simplesim memory ***\n");
         exit(FAILCODE);
       }
 
@@ -221,7 +221,7 @@ void scc::link()
         byte -= address;
         byte += corrected;
         if (corrected < (int)lastInstAddr) {
-          printf("*** ERROR: insufficient stack space ***\n");
+          fprintf(stderr, "*** ERROR: insufficient stack space ***\n");
           exit(FAILCODE);
         }
         break;
@@ -252,7 +252,7 @@ void scc::allocVars()
     if (sim.type == 'v') {
       sim.addr = next_var--;
       if (sim.addr < 0) {
-        printf("*** ERROR: ran out Simplesim memory ***\n");
+        fprintf(stderr, "*** ERROR: ran out Simplesim memory ***\n");
         exit(FAILCODE);
       }
       if (!islower(sim.name[0])) {
@@ -303,7 +303,7 @@ void scc::first_pass()
 void scc::resDat(string a)
 {
   if (next_dat >= RMAX) {
-    std::cout << "*** ERROR: too many data lines ***\n";
+    std::cerr << "*** ERROR: too many data lines ***\n";
     exit(FAILCODE);
     return;
   }
@@ -329,7 +329,7 @@ int scc::sym_lookup(const string& name, const char& type )
   }
 
   if (nextsym >= RMAX) {
-    printf("*** ERROR: ran out Simplesim memory ***\n");
+    fprintf(stderr, "*** ERROR: ran out Simplesim memory ***\n");
     exit(FAILCODE);
     return -1;
   }
