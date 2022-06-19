@@ -47,28 +47,28 @@ void simplesim::panic(int errCode)
     //print the associated error message
     switch (errCode) {
     case LOAD_TOO_LARGE:
-      fprintf(stderr, "*** ABEND: pgm load: pgm too large ***\n\n");
+      std::cerr << "*** ABEND: pgm load: pgm too large ***\n\n";
       break;
     case LOAD_WORD_INVALID:
-      fprintf(stderr, "*** ABEND: pgm load: invalid word ***\n\n");
+      std::cerr << "*** ABEND: pgm load: invalid word ***\n\n";
       break;
     case BAD_OPCODE:
-      fprintf(stderr, "*** ABEND: invalid opcode ***\n\n");
+      std::cerr << "*** ABEND: invalid opcode ***\n\n";
       break;
     case BAD_ADDRESS:
-      fprintf(stderr, "*** ABEND: addressability error ***\n\n");
+      std::cerr << "*** ABEND: addressability error ***\n\n";
       break;
     case DIV_0:
-      fprintf(stderr, "*** ABEND: attempted division by 0 ***\n\n");
+      std::cerr << "*** ABEND: attempted division by 0 ***\n\n";
       break;
     case UNDERFLOW:
-      fprintf(stderr, "*** ABEND: underflow ***\n\n");
+      std::cerr << "*** ABEND: underflow ***\n\n";
       break;
     case OVERFLOW:
-      fprintf(stderr, "*** ABEND: overflow ***\n\n");
+      std::cerr << "*** ABEND: overflow ***\n\n";
       break;
     case READ_WORD_INVALID:
-      fprintf(stderr, "*** ABEND: illegal input ***\n\n");
+      std::cerr << "*** ABEND: illegal input ***\n\n";
       break;
     }
     //stop emulation.
@@ -97,6 +97,7 @@ void simplesim::read(int addr)
   std::cout << '\n';
   ram[addr] = a;
 }
+
 /**
  * print a value in memory to console
  * @param int addr - The address is the position in memory we are printing out to the console
@@ -473,7 +474,7 @@ void simplesim::execute_program()
         branchneg(operand);
         break;
       case HALT:
-        printf("*** Simplesim execution terminated ***\n\n");
+        std::cout << ("*** Simplesim execution terminated ***\n\n");
         stop = true;
         break;
       default:
@@ -494,31 +495,31 @@ void simplesim::dump()
   //number of memory positions per line
   const int PERLINE = 10;
 
-  printf("REGISTERS:\n");
+  std::cout << ("REGISTERS:\n");
 
-  printf("accumulator:            ");
+  std::cout << ("accumulator:            ");
   printword(accumulator);
-  printf("\n");
+  std::cout << ("\n");
 
-  printf("instruction_counter:    ");
+  std::cout << ("instruction_counter:    ");
   printword(pc, 2);
-  printf("\n");
+  std::cout << ("\n");
 
-  printf("instruction_register:   ");
+  std::cout << ("instruction_register:   ");
   printword(inst);
-  printf("\n");
+  std::cout << ("\n");
 
-  printf("operation_code:         ");
+  std::cout << ("operation_code:         ");
   printword(opcode, 2);
-  printf("\n");
+  std::cout << ("\n");
 
-  printf("operand:                ");
+  std::cout << ("operand:                ");
   printword(operand, 2);
-  printf("\n\nMEMORY:\n");
+  std::cout << ("\n\nMEMORY:\n");
 
 
 
-  printf("       0     1     2     3     4     5     6     7     8     9\n");
+  std::cout << ("       0     1     2     3     4     5     6     7     8     9\n");
 
   //get number of lines to print
   int lines = RMAX/PERLINE;
@@ -528,7 +529,7 @@ void simplesim::dump()
   //for each line...
   for (int i = 0; i < (lines); i++) {
     //print the line number
-    printf("%d ", (i * PERLINE));
+    std::cout << (i * PERLINE) << ' ';
     //for each index on the line
     for (int c = 0; c < PERLINE; c++) {
       //print the number and a space if we are not at the end of the line
@@ -541,6 +542,15 @@ void simplesim::dump()
     std::cout << '\n';
   }
 
+}
+
+#include <cmath>
+int DigitLength(int a) {
+  int NumberDigits = 0;
+  while (pow(10,NumberDigits) <= a) {
+    NumberDigits++;
+  }
+  return --NumberDigits;
 }
 
 /**
@@ -560,8 +570,7 @@ void printword(int a)
 
   //get digits from sprintf and dump result into temp
   const int width = 4;
-  char temp[11] = "%d";
-  int digits = sprintf(temp, "%d" ,a);
+  int digits = DigitLength(a);
   int extra = width - digits;
 
 
@@ -582,13 +591,9 @@ void printword(int a)
  ********************************************************************************/
 void printword(int a, int width)
 {
-
   //create a temporary array for sprintf to dump its result into
-  char temp[10] = "%d";
-  int digits = sprintf(temp, "%d" ,a);
+  int digits = DigitLength(a);
   int extra = width - digits;
-
-
 
   //add leading zeros as needed
   for (int i = 0; i < extra; i++) {
