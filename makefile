@@ -8,105 +8,132 @@
 CXX = g++
 CXXFLAGS = -Wall -Werror -std=c++11 -IHeaders
 
-INPUT_DIR=TestInput
+ROOT_DIR=$(shell pwd)
+
+SRC_DIR=$(ROOT_DIR)/Src
+HEAD_DIR=$(ROOT_DIR)/Headers
+
+BUILD_DIR=$(ROOT_DIR)/Build
+INPUT_DIR=$(ROOT_DIR)/TestInput
+
 
 vpath %.h Headers
 vpath %.cpp Src
 vpath %.s $(INPUT_DIR)
+
+vpath %.o Build
+vpath scc Build
+vpath simplesim Build
 
 # Rule to link object code files to create executable file
 all: scc simplesim
 TARGFILE = bigdata.s
 
 test: scc
-	./scc < $(TARGFILE)
+	$(BUILD_DIR)/scc < $(TARGFILE)
 
 
 exam: scc simplesim
-	-./scc < $(INPUT_DIR)/$(TARGFILE) > scc.out
-	-./scc_check < $(INPUT_DIR)/$(TARGFILE) > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/$(TARGFILE) > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/$(TARGFILE) > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
 
 fullexam: scc bigdata.s bigpgm.s bigpgmcmd.s bigpgmstack.s bigpgmvar.s end.s max.s \
 		  prime.s read.s rw.s sum.s
+		  
 	echo "Running BIGDATA"
-	-./scc < $(INPUT_DIR)/bigdata.s > scc.out
-	-./scc_check < $(INPUT_DIR)/bigdata.s > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigdata.s > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigdata.s > scc.key
 	-diff scc.out scc.key
+
 	echo "Running BIGPGM"
-	-./scc < $(INPUT_DIR)/bigpgm.s > scc.out
-	-./scc_check < $(INPUT_DIR)/bigpgm.s > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgm.s > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgm.s > scc.key
 	-diff scc.out scc.key
+
 	echo "Running BIGPGMCMD"
-	-./scc < $(INPUT_DIR)/bigpgmcmd.s > scc.out
-	-./scc_check < $(INPUT_DIR)/bigpgmcmd.s > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmcmd.s > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmcmd.s > scc.key
 	-diff scc.out scc.key
+
 	echo "Running BIGPGMSTACK"
-	-./scc < $(INPUT_DIR)/bigpgmstack.s > scc.out
-	-./scc_check < $(INPUT_DIR)/bigpgmstack.s > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmstack.s > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmstack.s > scc.key
 	-diff scc.out scc.key
+
 	echo "Running BIGPGMvar"
-	-./scc < $(INPUT_DIR)/bigpgmvar.s > scc.out
-	-./scc_check < $(INPUT_DIR)/bigpgmvar.s > scc.key
+	-$(BUILD_DIR)/scc < $(INPUT_DIR)/bigpgmvar.s > scc.out
+	-$(ROOT_DIR)/scc_check < $(INPUT_DIR)/bigpgmvar.s > scc.key
 	-diff scc.out scc.key
+
 	echo "Running end"
-	./scc < $(INPUT_DIR)/end.s > scc.out
-	./scc_check < $(INPUT_DIR)/end.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/end.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/end.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running max"
-	./scc < $(INPUT_DIR)/max.s > scc.out
-	./scc_check < $(INPUT_DIR)/max.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/max.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/max.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running max"
-	./scc < $(INPUT_DIR)/max.s > scc.out
-	./scc_check < $(INPUT_DIR)/max.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/max.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/max.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running prime"
-	./scc < $(INPUT_DIR)/prime.s > scc.out
-	./scc_check < $(INPUT_DIR)/prime.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/prime.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/prime.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running read"
-	./scc < $(INPUT_DIR)/read.s > scc.out
-	./scc_check < $(INPUT_DIR)/read.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/read.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/read.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running rw"
-	./scc < $(INPUT_DIR)/rw.s > scc.out
-	./scc_check < $(INPUT_DIR)/rw.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/rw.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/rw.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 	echo "Running sum"
-	./scc < $(INPUT_DIR)/sum.s > scc.out
-	./scc_check < $(INPUT_DIR)/sum.s > scc.key
+	$(BUILD_DIR)/scc < $(INPUT_DIR)/sum.s > scc.out
+	$(ROOT_DIR)/scc_check < $(INPUT_DIR)/sum.s > scc.key
 	-diff scc.out scc.key
-	./simplesim_check < scc.out > simpleCheck.out
-	./simplesim_check < scc.key > simpleCheck.key
+	$(ROOT_DIR)/simplesim_check < scc.out > simpleCheck.out
+	$(ROOT_DIR)/simplesim_check < scc.key > simpleCheck.key
 	-diff simpleCheck.out simpleCheck.key
+
 scc: scc.o inpost.o mystack.o
-	$(CXX) $(CXXFLAGS) -o scc $^
+	$(CXX) $(CXXFLAGS)  $^ -o Build/scc
 
 simplesim: simplesim_main.o simplesim.o
-	$(CXX) $(CXXFLAGS) -o simplesim $^
+	$(CXX) $(CXXFLAGS) $^ -o Build/simplesim 
 
+
+%.o : %.cpp
+	$(CXX) -c $(CXXFLAGS) -o Build/$@ $<
 # Rules to compile source code file to object code
 scc.o: scc.cpp sml.h inpost.h
 inpost.o: inpost.cpp inpost.h mystack.h
