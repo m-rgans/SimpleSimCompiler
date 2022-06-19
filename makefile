@@ -180,12 +180,14 @@ simplesim: simplesim_main.o simplesim.o
 %.o : %.cpp
 	$(CXX) -c $(CXXFLAGS) -o Build/$@ $<
 # Rules to compile source code file to object code
-scc.o: scc.cpp sml.h inpost.h
-inpost.o: inpost.cpp inpost.h mystack.h
-mystack.o: mystack.cpp mystack.h
-simplesim_main.o: simplesim_main.cpp simplesim.h
-simplesim.o: simplesim.cpp simplesim.h sml.h
+scc.o: scc.cpp sml.h inpost.h | $(BUILD_DIR)
+inpost.o: inpost.cpp inpost.h mystack.h | $(BUILD_DIR)
+mystack.o: mystack.cpp mystack.h | $(BUILD_DIR)
+simplesim_main.o: simplesim_main.cpp simplesim.h | $(BUILD_DIR)
+simplesim.o: simplesim.cpp simplesim.h sml.h | $(BUILD_DIR)
 
+$(BUILD_DIR) :
+	mkdir $(BUILD_DIR)
 
 # Pseudo-target to remove object code and executable files
 clean:
